@@ -20,14 +20,4 @@ public enum Directions {
     public int getY() {
          return y;
     }
-
-    public void move(int steps, Directions direction) {
-        this.x += direction.x*steps;
-        this.y += direction.y*steps;
-    }
-
-    public void move(Directions direction) {
-        this.x += direction.x;
-        this.y += direction.y;
-    }
 }

@@ -45,7 +45,7 @@ public class Board {
     }
 
     public List<Directions> getValidDirections(BoardStatus boardStatus) {
-        Coordinate player = boardStatus.getSokoban();
+        Coordinate player = boardStatus.getPlayer();
         List<Directions> validDirections = new ArrayList<>();
         for (Directions dir : Directions.values()) {
             Coordinate newCoordinate = new Coordinate(player.getX(), player.getY());

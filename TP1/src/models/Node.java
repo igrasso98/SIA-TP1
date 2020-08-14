@@ -2,12 +2,13 @@ package models;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Node {
     private Set<BoardStatus> errorStatusHistory;
     private BoardStatus status;
-    private ArrayList<Node> children;
+    private List<Node> children;
     private int depth;
     private int cost;
 
@@ -19,10 +20,6 @@ public class Node {
         this.cost = cost;
     }
 
-    public Node(Node node, Directions direction){
-        this.errorStatusHistory = node.errorStatusHistory;
-        this.status = node.getStatus();
-    }
 
     public Set<BoardStatus> getErrorStatusHistory() {
         return errorStatusHistory;
@@ -40,7 +37,7 @@ public class Node {
         this.status = status;
     }
 
-    public ArrayList<Node> getChildren() {
+    public List<Node> getChildren() {
         return children;
     }
 
