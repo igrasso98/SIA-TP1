@@ -1,8 +1,8 @@
 package models;
 
 public class Coordinate {
-    private int x;
-    private int y;
+    private Integer x;
+    private Integer y;
 
     public Coordinate(int x, int y) {
         this.x = x;
@@ -33,6 +33,15 @@ public class Coordinate {
         }
 
         Coordinate otherCoordinate = (Coordinate) o;
-        return otherCoordinate.x == this.x && otherCoordinate.y == this.y;
+        return otherCoordinate.x.equals(this.x) && otherCoordinate.y.equals(this.y);
+    }
+
+    @Override
+    public int hashCode(){
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((x == null) ? 0 : x.hashCode());
+        result = prime * result + ((y == null) ? 0 : y.hashCode());
+        return result;
     }
 }

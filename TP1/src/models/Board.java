@@ -10,10 +10,10 @@ public class Board {
     private Set<Coordinate> walls;
     private Set<Coordinate> goals;
 
-    public Board() {
-        this.deadlocks = new HashSet<>();
-        this.walls = new HashSet<>();
-        this.goals = new HashSet<>();
+    public Board(Set<Coordinate> deadlocks, Set<Coordinate> walls, Set<Coordinate> goals) {
+        this.deadlocks = deadlocks;
+        this.walls = walls;
+        this.goals = goals;
     }
 
     public Set<Coordinate> getDeadlocks() {
@@ -51,6 +51,7 @@ public class Board {
             Coordinate newCoordinate = new Coordinate(player.getX(), player.getY());
             newCoordinate.move(dir);
             //CHEQUEAR DEADLOCK
+            boolean aux = walls.contains(newCoordinate);
             if (!walls.contains(newCoordinate)) {
                 if (boardStatus.getBoxes().contains(newCoordinate)) {
                     Coordinate newBoxCoordinate = new Coordinate(newCoordinate.getX(), newCoordinate.getY());

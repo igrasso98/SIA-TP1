@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SearchingAlgorithms {
+
     List<Node> getChildren(Node node, Board board) {
         BoardStatus currentStatus = node.getStatus();
         List<Node> children = new ArrayList<>();

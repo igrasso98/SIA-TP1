@@ -1,5 +1,7 @@
 package models;
 
+import engines.BFSEngine;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,8 +11,8 @@ public class Node {
     private Set<BoardStatus> errorStatusHistory;
     private BoardStatus status;
     private List<Node> children;
-    private int depth;
-    private int cost;
+    private Integer depth;
+    private Integer cost;
 
     public Node(BoardStatus status, int depth, int cost) {
         this.errorStatusHistory = new HashSet<>();
@@ -59,5 +61,30 @@ public class Node {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Node)) {
+            return false;
+        }
+
+        Node otherNode = (Node) o;
+        return otherNode.children.equals(this.children) && otherNode.depth.equals(this.depth) && otherNode.cost.equals(this.cost) && otherNode.status.equals(this.status);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((children == null) ? 0 : children.hashCode());
+        result = prime * result + ((depth == null) ? 0 : depth.hashCode());
+        result = prime * result + ((cost == null) ? 0 : cost.hashCode());
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        return result;
     }
 }

@@ -10,11 +10,11 @@ public class BoardStatus {
 
     public BoardStatus(Set<Coordinate> boxes, Map<Coordinate, Boolean> goals, Coordinate player) {
         this.boxes = boxes;
-        this. player = player;
+        this.player = player;
         this.goals = goals;
     }
 
-    public boolean isSolved(){
+    public boolean isSolved() {
         return boxes.equals(goals.keySet());
     }
 
@@ -22,7 +22,7 @@ public class BoardStatus {
         return boxes;
     }
 
-    public Map<Coordinate, Boolean> getGoals(){
+    public Map<Coordinate, Boolean> getGoals() {
         return this.goals;
     }
 
@@ -39,8 +39,8 @@ public class BoardStatus {
     }
 
     public boolean validateSolution() {
-        for(Coordinate c : goals.keySet()) {
-            if(!goals.get(c)) {
+        for (Coordinate c : goals.keySet()) {
+            if (!goals.get(c)) {
                 return false;
             }
         }
@@ -48,16 +48,35 @@ public class BoardStatus {
     }
 
     @Override
+    public String toString() {
+        return "(" +
+                player.getX() +
+                "," +
+                player.getY() +
+                ")";
+    }
+
+    @Override
     public boolean equals(Object o) {
-        if(o == this) {
+        if (o == this) {
             return true;
         }
 
-        if(!(o instanceof BoardStatus)) {
+        if (!(o instanceof BoardStatus)) {
             return false;
         }
 
         BoardStatus boardStatus = (BoardStatus) o;
         return boxes.equals(boardStatus.boxes) && player.equals(boardStatus.player) && goals.equals(boardStatus.goals);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((player == null) ? 0 : player.hashCode());
+        result = prime * result + ((boxes == null) ? 0 : boxes.hashCode());
+        result = prime * result + ((goals == null) ? 0 : goals.hashCode());
+        return result;
     }
 }

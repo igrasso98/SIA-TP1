@@ -25,6 +25,4 @@ public class StatusManager {
         }
         return new BoardStatus(boxesUpdated, goalsUpdated, newCoordinate);
     }
-
-
 }
