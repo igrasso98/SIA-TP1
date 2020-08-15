@@ -29,7 +29,7 @@ public class BFSStorage implements SearchingAlgorithms {
             BFSNode aux = frontiers.poll();
             Node currentNode = aux.node;
             BoardStatus currentStatus = currentNode.getStatus();
-            if (currentStatus.getBoxes().equals(goals)) {
+            if (currentStatus.isSolved()) {
                 return currentNode;
             }
             explored.add(currentStatus);
@@ -52,9 +52,11 @@ public class BFSStorage implements SearchingAlgorithms {
         BoardStatus currentStatus = node.getStatus();
 
         List<Node> children = new ArrayList<>();
-        for(Directions dir : Directions.values()) {
+        List<Directions> validDirections = board.getValidDirections(currentStatus);
+        for(Directions dir : validDirections) {
            BoardStatus newBoardStatus = StatusValidation.validate(board, currentStatus, dir);
            if(newBoardStatus != null) {
+               // Node newChildren = generateNode(currentNode, dir)
                Node newChildren = new Node(newBoardStatus, node.getDepth()+1, node.getCost()+1);
                children.add(newChildren);
            }

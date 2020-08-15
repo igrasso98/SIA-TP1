@@ -1,6 +1,5 @@
 package models;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -8,14 +7,11 @@ public class BoardStatus {
     private Set<Coordinate> boxes;
     private Coordinate player;
     private Map<Coordinate, Boolean> goals;
-    private Set<Coordinate> dynamicDeadlocks;
 
     public BoardStatus(Set<Coordinate> boxes, Map<Coordinate, Boolean> goals, Coordinate player) {
         this.boxes = boxes;
         this. player = player;
         this.goals = goals;
-        this.player = player;
-        this.dynamicDeadlocks = new HashSet<>();
     }
 
     public boolean isSolved(){
@@ -40,10 +36,6 @@ public class BoardStatus {
 
     public void setPlayer(Coordinate player) {
         this.player = player;
-    }
-
-    public Set<Coordinate> getDynamicDeadlocks() {
-        return dynamicDeadlocks;
     }
 
     public boolean validateSolution() {
