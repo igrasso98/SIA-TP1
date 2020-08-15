@@ -8,13 +8,22 @@ public class BoardStatus {
     private Coordinate player;
     private Map<Coordinate, Boolean> goals;
 
-    public BoardStatus(Set<Coordinate> boxes, Map<Coordinate, Boolean> goals) {
+    public BoardStatus(Set<Coordinate> boxes, Coordinate player,Map<Coordinate, Boolean> goals) {
         this.boxes = boxes;
+        this. player = player;
         this.goals = goals;
+    }
+
+    public boolean isSolved(){
+        return boxes.equals(goals.keySet());
     }
 
     public Set<Coordinate> getBoxes() {
         return boxes;
+    }
+
+    public Map<Coordinate, Boolean> getGoals(){
+        return this.goals;
     }
 
     public void setBoxes(Set<Coordinate> boxes) {
