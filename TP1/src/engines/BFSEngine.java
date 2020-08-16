@@ -64,7 +64,6 @@ public class BFSEngine extends SearchingAlgorithms {
                 BFSNode newChildren = new BFSNode(child, childrenMovements);
                 if (!(explored.contains(child.getStatus()) || frontiers.contains(newChildren))) {
                     if (child.getStatus().isSolved()) {
-                        System.out.println(child.getDepth());
                         return currentNode;
                     }
                     frontiers.offer(newChildren);
