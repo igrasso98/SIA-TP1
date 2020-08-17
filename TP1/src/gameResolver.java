@@ -1,11 +1,6 @@
-import Heuristics.Manhattan;
-import engines.BFSEngine;
-import engines.DFSEngine;
-import engines.GreedyEngine;
-import models.Board;
-import models.BoardStatus;
-import models.Coordinate;
-import models.Node;
+import engines.*;
+import models.*;
+import heuristics.*;
 
 import java.util.*;
 
@@ -47,16 +42,18 @@ public class gameResolver {
         movements.add(root.getStatus());
         root.setMovements(movements);
 
-        DFSEngine dfs = new DFSEngine();
-        Node node = dfs.perform(root,board);
-        System.out.println(node.getDepth());
+//        DFSEngine dfs = new DFSEngine();
+//        Answer answer = dfs.perform(root,board);
+//        System.out.println(answer.toString());
+
 
 //        BFSEngine bfs = new BFSEngine();
 //        Node node = bfs.perform(root,board);
 //        System.out.println(node.getDepth());
 
-//        GreedyEngine greedy = new GreedyEngine();
-//        Manhattan manhattan = new Manhattan();
-//        Node node = greedy.perform(root, board, manhattan);
+        GreedyEngine greedy = new GreedyEngine();
+        Manhattan manhattan = new Manhattan();
+        Answer answer = greedy.perform(root, board, manhattan);
+        System.out.println(answer.toString());
     }
 }
