@@ -1,4 +1,4 @@
-package Heuristics;
+package heuristics;
 
 import models.BoardStatus;
 

@@ -1,47 +1,46 @@
 package engines;
 
-import Heuristics.Heuristics;
-import models.Board;
-import models.BoardStatus;
-import models.Coordinate;
-import models.Node;
+import heuristics.Heuristics;
+import models.*;
 
 import java.util.*;
 
+import static models.AnswerStatus.*;
+
 public class GreedyEngine extends SearchingAlgorithms {
 
-    public Node perform(Node node, Board board, Heuristics heuristic) {
-        if (node.getStatus().isSolved()) {
-            // return Solution(node);
-            return node;
+    public Answer perform(Node node, Board board, Heuristics heuristic) {
+        Node currentNode = node;
+        if (currentNode.getStatus().isSolved()) {
+             return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new HashSet<>(), currentNode.getMovements());
+
         }
 
         Queue<Node> frontier = new PriorityQueue<>(Comparator.comparingInt(t -> heuristic.compute(t.getStatus())));
         Set<BoardStatus> explored = new HashSet<>();
 
-        frontier.add(node);
-        while (!frontier.isEmpty()){
-            Node currentNode = frontier.poll();
+        frontier.add(currentNode);
+
+        while (!frontier.isEmpty()) {
+            currentNode = frontier.poll();
             explored.add(currentNode.getStatus());
             List<Node> children = getChildren(currentNode, board);
-            for(Node child : children){
+            for (Node child : children) {
                 Set<BoardStatus> childrenMovements = new LinkedHashSet<>(currentNode.getMovements());
                 childrenMovements.add(child.getStatus());
                 child.setMovements(childrenMovements);
                 if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                     if (child.getStatus().isSolved()) {
-                        for(BoardStatus stat : child.getMovements()){
+                        for (BoardStatus stat : child.getMovements()) {
                             board.printBoard(stat);
                         }
-//                        return Solution(child);
-                        return child;
+                        return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored, frontier, child.getMovements());
                     }
                     frontier.add(child);
                 }
             }
         }
-
-        return null;
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored, frontier, currentNode.getMovements());
     }
 
 }

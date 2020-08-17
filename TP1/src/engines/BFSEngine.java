@@ -4,20 +4,26 @@ import models.*;
 
 import java.util.*;
 
+import static models.AnswerStatus.FAIL;
+import static models.AnswerStatus.SUCCESS;
+
 public class BFSEngine extends SearchingAlgorithms {
-    public Node perform(Node node, Board board) {
-        if (node.getStatus().isSolved()) {
-            // return Solution(node);
-            return node;
+
+    public Answer perform(Node node, Board board) {
+        Node currentNode = node;
+        Answer answer;
+        if (currentNode.getStatus().isSolved()) {
+            answer = new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new HashSet<>(), currentNode.getMovements());
+            return answer;
         }
 
-        Queue<Node> frontiers = new LinkedList<>();
+        Queue<Node> frontier = new LinkedList<>();
         Set<BoardStatus> explored = new HashSet<>();
 
-        frontiers.offer(node);
+        frontier.offer(currentNode);
 
-        while (!frontiers.isEmpty()) {
-            Node currentNode = frontiers.poll();
+        while (!frontier.isEmpty()) {
+            currentNode = frontier.poll();
             BoardStatus currentStatus = currentNode.getStatus();
             explored.add(currentStatus);
             List<Node> children = getChildren(currentNode, board);
@@ -25,17 +31,19 @@ public class BFSEngine extends SearchingAlgorithms {
                 Set<BoardStatus> childrenMovements = new LinkedHashSet<>(currentNode.getMovements());
                 childrenMovements.add(child.getStatus());
                 child.setMovements(childrenMovements);
-                if (!(explored.contains(child.getStatus()) || frontiers.contains(child))) {
+                if (!(explored.contains(child.getStatus()) || frontier.contains(child))) {
                     if (child.getStatus().isSolved()) {
                         for(BoardStatus stat : child.getMovements()){
                             board.printBoard(stat);
                         }
-                        return child;
+                        answer = new Answer(SUCCESS, child.getDepth(), child.getCost(), explored, frontier, child.getMovements());
+                        return answer;
                     }
-                    frontiers.offer(child);
+                    frontier.offer(child);
                 }
             }
         }
-        return null;
+        answer = new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored, frontier, currentNode.getMovements());
+        return answer;
     }
 }

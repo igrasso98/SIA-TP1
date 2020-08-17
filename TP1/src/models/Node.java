@@ -94,4 +94,9 @@ public class Node {
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         return result;
     }
+
+    @Override
+    public String toString() {
+        return status.toString();
+    }
 }

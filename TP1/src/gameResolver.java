@@ -50,21 +50,17 @@ public class gameResolver {
         root.setMovements(movements);
 
 //        DFSEngine dfs = new DFSEngine();
-//        Node node = dfs.perform(root,board);
-//        System.out.println(node.getDepth());
+//        Answer answer = dfs.perform(root,board);
+//        System.out.println(answer.toString());
 
 //        BFSEngine bfs = new BFSEngine();
 //        Node node = bfs.perform(root,board);
 //        System.out.println(node.getDepth());
 
-//        GreedyEngine greedy = new GreedyEngine();
-//        Manhattan manhattan = new Manhattan();
-//        Node node = greedy.perform(root, board, manhattan);
 
-        AstarEngine astarEngine = new AstarEngine();
-        Euclidean euclidean = new Euclidean();
-//        Manhattan manhattan = new Manhattan();
-        Node node = astarEngine.perform(root, board, euclidean);
-        System.out.println(node.getDepth());
+        GreedyEngine greedy = new GreedyEngine();
+        Manhattan manhattan = new Manhattan();
+        Answer answer = greedy.perform(root, board, manhattan);
+        System.out.println(answer.toString());
     }
 }
