@@ -1,4 +1,6 @@
+import Heuristics.Euclidean;
 import Heuristics.Manhattan;
+import engines.AstarEngine;
 import engines.BFSEngine;
 import engines.DFSEngine;
 import engines.GreedyEngine;
@@ -47,9 +49,9 @@ public class gameResolver {
         movements.add(root.getStatus());
         root.setMovements(movements);
 
-        DFSEngine dfs = new DFSEngine();
-        Node node = dfs.perform(root,board);
-        System.out.println(node.getDepth());
+//        DFSEngine dfs = new DFSEngine();
+//        Node node = dfs.perform(root,board);
+//        System.out.println(node.getDepth());
 
 //        BFSEngine bfs = new BFSEngine();
 //        Node node = bfs.perform(root,board);
@@ -58,5 +60,11 @@ public class gameResolver {
 //        GreedyEngine greedy = new GreedyEngine();
 //        Manhattan manhattan = new Manhattan();
 //        Node node = greedy.perform(root, board, manhattan);
+
+        AstarEngine astarEngine = new AstarEngine();
+        Euclidean euclidean = new Euclidean();
+//        Manhattan manhattan = new Manhattan();
+        Node node = astarEngine.perform(root, board, euclidean);
+        System.out.println(node.getDepth());
     }
 }
