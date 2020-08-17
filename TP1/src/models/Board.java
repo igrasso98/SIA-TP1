@@ -1,9 +1,6 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Board {
     private Set<Coordinate> deadlocks;
@@ -66,5 +63,67 @@ public class Board {
             }
         }
         return validDirections;
+    }
+
+    public void printBoard(BoardStatus currentStatus){
+        Map<Coordinate,String> board = new HashMap<>();
+        int width = 0;
+        int height = 0;
+
+        for(Coordinate wall : this.walls){
+            board.put(wall,"#");
+            if(wall.getX() >= width){
+                width = wall.getX();
+            }
+            if(wall.getY() >= height){
+                height = wall.getY();
+            }
+        }
+
+        for(Coordinate goal : this.goals){
+            board.put(goal,"L");
+        }
+
+        for(Coordinate box : currentStatus.getBoxes()){
+            if(board.containsKey(box)){
+                board.replace(box,"E");
+            }
+            else{
+                board.put(box,"F");
+            }
+        }
+
+        if(board.containsKey(currentStatus.getPlayer())){
+            board.replace(currentStatus.getPlayer(),"Ł");
+        }
+        else{
+            board.put(currentStatus.getPlayer(), "/");
+        }
+
+        for(int i=0 ; i <= width ; i++){
+            for(int j=0 ; j <=height ; j++){
+                Coordinate aux = new Coordinate(i,j);
+                if(board.containsKey(aux)){
+                    System.out.print(board.get(aux));
+                } else {
+                    System.out.print("_");
+                }
+            }
+            System.out.println();
+        }
+
+//        int index = 0;
+//        boolean flag = true;
+//        while(flag){
+//            flag = false;
+//            for(Coordinate c : board.keySet()) {
+//                if(c.getX() == index){
+//                    flag = true;
+//                    System.out.print(board.get(c));
+//                }
+//            }
+//            System.out.println();
+//            index++;
+//        }
     }
 }

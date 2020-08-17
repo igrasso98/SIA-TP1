@@ -19,14 +19,18 @@ public class DFSEngine extends SearchingAlgorithms {
 
         while (!frontier.isEmpty()) {
             Node currentNode = frontier.pop();
-            System.out.println(currentNode.getStatus().toString());
             explored.add(currentNode.getStatus());
             List<Node> children = getChildren(currentNode, board);
             for (Node child : children) {
+                Set<BoardStatus> childrenMovements = new LinkedHashSet<>(currentNode.getMovements());
+                childrenMovements.add(child.getStatus());
+                child.setMovements(childrenMovements);
                 if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                     if (child.getStatus().isSolved()) {
 //                        return Solution(child);
-                        System.out.println(child.getStatus().toString());
+                        for(BoardStatus stat : child.getMovements()){
+                            board.printBoard(stat);
+                        }
                         return child;
                     }
                     frontier.push(child);

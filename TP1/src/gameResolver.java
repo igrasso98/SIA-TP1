@@ -1,14 +1,13 @@
+import Heuristics.Manhattan;
 import engines.BFSEngine;
 import engines.DFSEngine;
+import engines.GreedyEngine;
 import models.Board;
 import models.BoardStatus;
 import models.Coordinate;
 import models.Node;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class gameResolver {
     public static void main(String[] args) {
@@ -44,13 +43,20 @@ public class gameResolver {
         BoardStatus initialStatus = new BoardStatus(boxes,goals,player);
 
         Node root = new Node(initialStatus,0,0);
+        Set<BoardStatus> movements = new LinkedHashSet<>();
+        movements.add(root.getStatus());
+        root.setMovements(movements);
 
-//        DFSEngine dfs = new DFSEngine();
-//        Node node = dfs.perform(root,board);
+        DFSEngine dfs = new DFSEngine();
+        Node node = dfs.perform(root,board);
+        System.out.println(node.getDepth());
+
+//        BFSEngine bfs = new BFSEngine();
+//        Node node = bfs.perform(root,board);
 //        System.out.println(node.getDepth());
 
-        BFSEngine bfs = new BFSEngine();
-        Node node = bfs.perform(root,board);
-//        System.out.println(node.getDepth());
+//        GreedyEngine greedy = new GreedyEngine();
+//        Manhattan manhattan = new Manhattan();
+//        Node node = greedy.perform(root, board, manhattan);
     }
 }
