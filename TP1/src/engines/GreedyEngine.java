@@ -20,11 +20,8 @@ public class GreedyEngine extends SearchingAlgorithms {
         Set<BoardStatus> explored = new HashSet<>();
 
         frontier.add(node);
-//        board.printBoard(node.getStatus());
-
         while (!frontier.isEmpty()){
             Node currentNode = frontier.poll();
-//            board.printBoard(currentNode.getStatus());
             explored.add(currentNode.getStatus());
             List<Node> children = getChildren(currentNode, board);
             for(Node child : children){
@@ -42,31 +39,9 @@ public class GreedyEngine extends SearchingAlgorithms {
                     frontier.add(child);
                 }
             }
-//            for (Node n : frontier){
-//                System.out.print(n.getStatus());
-//            }
-//            System.out.println();
         }
 
         return null;
     }
 
 }
-
-
-//queue.add(state);
-//        while (!queue.isEmpty()) {
-//        State curr = queue.poll();
-//        visited.add(curr);
-//        if (curr.reachedGoal()) {
-//        System.out.println("**************** Solution Found ! ******************");
-//        System.out.println(curr.getMove().length());
-//        System.out.println("greedy(" + heuristic + "): "+ (System.currentTimeMillis() - startTime) + " ms");
-////                System.out.print(" Gr: " + (System.currentTimeMillis() - startTime) + " ");
-//        break;
-//        } else {
-//        for (State e : curr.getNeighbors()) {
-//        if (!visited.contains(e)) queue.add(e);
-//        }
-//        }
-//        }

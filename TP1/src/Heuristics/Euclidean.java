@@ -1,10 +1,6 @@
 package Heuristics;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import models.BoardStatus;
 import models.Coordinate;
-
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 

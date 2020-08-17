@@ -111,19 +111,5 @@ public class Board {
             }
             System.out.println();
         }
-
-//        int index = 0;
-//        boolean flag = true;
-//        while(flag){
-//            flag = false;
-//            for(Coordinate c : board.keySet()) {
-//                if(c.getX() == index){
-//                    flag = true;
-//                    System.out.print(board.get(c));
-//                }
-//            }
-//            System.out.println();
-//            index++;
-//        }
     }
 }

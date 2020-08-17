@@ -18,7 +18,6 @@ public class BFSEngine extends SearchingAlgorithms {
 
         while (!frontiers.isEmpty()) {
             Node currentNode = frontiers.poll();
-//            Node currentNode = currentBfsNode.node;
             BoardStatus currentStatus = currentNode.getStatus();
             explored.add(currentStatus);
             List<Node> children = getChildren(currentNode, board);
