@@ -5,39 +5,6 @@ import models.*;
 import java.util.*;
 
 public class BFSEngine extends SearchingAlgorithms {
-
-//    private static class BFSNode {
-//        Node node;
-//        Set<BoardStatus> movements;
-//
-//        BFSNode(Node node, Set<BoardStatus> movements) {
-//            this.node = node;
-//            this.movements = movements;
-//        }
-//
-//        @Override
-//        public boolean equals(Object o) {
-//            if (o == this) {
-//                return true;
-//            }
-//
-//            if (!(o instanceof BFSNode)) {
-//                return false;
-//            }
-//
-//            BFSNode otherBfsNode = (BFSNode) o;
-//            return otherBfsNode.node.getStatus().equals(this.node.getStatus());
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            final int prime = 31;
-//            int result = 1;
-//            result = prime * result + ((node.getStatus() == null) ? 0 : node.getStatus().hashCode());
-//            return result;
-//        }
-//    }
-
     public Node perform(Node node, Board board) {
         if (node.getStatus().isSolved()) {
             // return Solution(node);
