@@ -47,12 +47,12 @@ public class gameResolver {
         walls.add(new Coordinate(4,6));
 
         char[][] boardMatrix = {{'#', '#', '#', '#', '#', '#', '#'},
-                                {'#', '@', ' ', ' ', ' ', ' ', '#'},
+                                {'#', ' ', '$', '@', ' ', ' ', '#'},
                                 {'#', '#', '#', ' ', ' ', ' ', '#'},
                                 {'#', ' ', ' ', ' ', ' ', '*', '#'},
                                 {'#', '#', '#', '#', '#', '#', '#',}};
         Set<Coordinate> goalsUbication = new HashSet<>();
-        goalsUbication.add(new Coordinate(3,3));
+        goalsUbication.add(new Coordinate(3,5));
         Set<Coordinate> deadlocks = BoardParser.findDeadlocks(boardMatrix);
         Board board = new Board(deadlocks,walls,goalsUbication);
 //        for (char[] aBoardMatrix : boardMatrix) {
@@ -67,7 +67,7 @@ public class gameResolver {
 //        System.out.println(deadlocks);
 
 
-        BoardStatus initialStatus = new BoardStatus(boxes,goals,player, new HashSet<>());
+        BoardStatus initialStatus = new BoardStatus(boxes,goals,player);
 
         Node root = new Node(initialStatus,0,0);
         Set<BoardStatus> movements = new LinkedHashSet<>();

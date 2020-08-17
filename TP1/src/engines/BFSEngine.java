@@ -35,7 +35,7 @@ public class BFSEngine extends SearchingAlgorithms {
                 if (!(explored.contains(child.getStatus()) || frontier.contains(child))) {
                     if (child.getStatus().isSolved()) {
                         for(BoardStatus stat : child.getMovements()){
-                            board.printBoard(stat);
+//                            board.printBoard(stat);
                         }
                         answer = new Answer(SUCCESS, child.getDepth(), child.getCost(), explored, frontier, child.getMovements());
                         return answer;

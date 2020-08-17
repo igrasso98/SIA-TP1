@@ -39,10 +39,11 @@ public class Board {
                 if (boardStatus.getBoxes().contains(newCoordinate)) {
                     Coordinate newBoxCoordinate = new Coordinate(newCoordinate.getX(), newCoordinate.getY());
                     newBoxCoordinate.move(dir);
-                    if(!boardStatus.isDeadlock(newBoxCoordinate, dir, walls)) {
-                        if (!walls.contains(newBoxCoordinate) && !boardStatus.getBoxes().contains(newBoxCoordinate)) {
-                            validDirections.add(dir);
-                        }
+                    if (!walls.contains(newBoxCoordinate) && !boardStatus.getBoxes().contains(newBoxCoordinate) && !isDeadlock(newBoxCoordinate, boardStatus.getBoxes(), dir)) {
+                        validDirections.add(dir);
+                    } else {
+                        printBoard(boardStatus);
+                        System.out.println(boardStatus.getGoals().values());
                     }
                 } else {
                     validDirections.add(dir);
@@ -50,6 +51,35 @@ public class Board {
             }
         }
         return validDirections;
+    }
+
+    private boolean isDeadlock(Coordinate coordinate, Set<Coordinate> boxes, Directions direction) {
+        if(deadlocks.contains(coordinate)) {
+            return true;
+        }
+
+        Coordinate oldCoordinate = new Coordinate(coordinate.getX(), coordinate.getY());
+        oldCoordinate.move(direction.getOpossite());
+        for(Directions dir : Directions.values()) {
+            if(dir != direction.getPartner()) {
+                Coordinate firstDirection = new Coordinate(coordinate.getX(), coordinate.getY());
+                Coordinate secondDirection = new Coordinate(coordinate.getX(), coordinate.getY());
+                firstDirection.move(dir);
+                secondDirection.move(dir.getPartner());
+                if(!firstDirection.equals(oldCoordinate) && !secondDirection.equals(oldCoordinate)) {
+                    if(edgePosition(firstDirection, boxes) && edgePosition(secondDirection, boxes)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean edgePosition(Coordinate coordinate, Set<Coordinate> boxes) {
+//        boolean aux1 =  walls.contains(coordinate);
+//        boolean aux2 = boxes.contains(coordinate);
+        return walls.contains(coordinate) || boxes.contains(coordinate);
     }
 
     public void printBoard(BoardStatus currentStatus){
