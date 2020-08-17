@@ -21,11 +21,11 @@ public class BoardStatus {
         return boxes.equals(goals.keySet());
     }
 
-    Set<Coordinate> getBoxes() {
+    public Set<Coordinate> getBoxes() {
         return boxes;
     }
 
-    Map<Coordinate, Boolean> getGoals() {
+    public Map<Coordinate, Boolean> getGoals() {
         return this.goals;
     }
 
@@ -51,9 +51,6 @@ public class BoardStatus {
     }
 
     boolean isDeadlock(Coordinate coordinate, Directions direction, Set<Coordinate> walls) {
-        if(deadlocks.contains(coordinate)) {
-            return true;
-        }
 
         for(Directions dir : Directions.values()) {
             if(dir != direction.getOpossite()) {
