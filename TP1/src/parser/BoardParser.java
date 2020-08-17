@@ -37,5 +37,21 @@ public class BoardParser {
         return false;
     }
 
+    public static Set<Coordinate> getBoxes(char[][] board) {
+        int boardWidth = board[0].length;
+        int boardHeigh = board.length;
+
+        Set<Coordinate> boxes = new HashSet<>();
+        for(int i = 0; i < boardHeigh; i++) {
+            for(int j = 0; j < boardWidth; j++) {
+                if(board[i][j] == '$') {
+                    boxes.add(new Coordinate(i, j));
+                }
+            }
+        }
+
+        return boxes;
+    }
+
 
 }

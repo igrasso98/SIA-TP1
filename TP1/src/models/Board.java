@@ -34,16 +34,12 @@ public class Board {
         for (Directions dir : Directions.values()) {
             Coordinate newCoordinate = new Coordinate(player.getX(), player.getY());
             newCoordinate.move(dir);
-            //CHEQUEAR DEADLOCK in board
             if (!walls.contains(newCoordinate)) {
                 if (boardStatus.getBoxes().contains(newCoordinate)) {
                     Coordinate newBoxCoordinate = new Coordinate(newCoordinate.getX(), newCoordinate.getY());
                     newBoxCoordinate.move(dir);
                     if (!walls.contains(newBoxCoordinate) && !boardStatus.getBoxes().contains(newBoxCoordinate) && !isDeadlock(newBoxCoordinate, boardStatus.getBoxes(), dir)) {
                         validDirections.add(dir);
-                    } else {
-                        printBoard(boardStatus);
-                        System.out.println(boardStatus.getGoals().values());
                     }
                 } else {
                     validDirections.add(dir);
@@ -66,7 +62,7 @@ public class Board {
                 Coordinate secondDirection = new Coordinate(coordinate.getX(), coordinate.getY());
                 firstDirection.move(dir);
                 secondDirection.move(dir.getPartner());
-                if(!firstDirection.equals(oldCoordinate) && !secondDirection.equals(oldCoordinate)) {
+                if(!(firstDirection.equals(oldCoordinate) || secondDirection.equals(oldCoordinate) || goals.contains(coordinate))) {
                     if(edgePosition(firstDirection, boxes) && edgePosition(secondDirection, boxes)) {
                         return true;
                     }
@@ -77,8 +73,6 @@ public class Board {
     }
 
     private boolean edgePosition(Coordinate coordinate, Set<Coordinate> boxes) {
-//        boolean aux1 =  walls.contains(coordinate);
-//        boolean aux2 = boxes.contains(coordinate);
         return walls.contains(coordinate) || boxes.contains(coordinate);
     }
 
