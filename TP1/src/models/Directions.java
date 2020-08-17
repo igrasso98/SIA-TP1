@@ -1,10 +1,10 @@
 package models;
 
 public enum Directions {
-        UP(0, -1),
-        LEFT(-1, 0),
-        RIGHT(1, 0),
-        DOWN(0, 1);
+        UP(-1, 0),
+        LEFT(0, -1),
+        RIGHT(0, 1),
+        DOWN(1, 0);
 
         private int x;
         private int y;
@@ -20,4 +20,32 @@ public enum Directions {
     public int getY() {
          return y;
     }
+
+    public Directions getOpossite() {
+        switch (this) {
+            case UP:
+                return DOWN;
+            case LEFT:
+                return RIGHT;
+            case RIGHT:
+                return LEFT;
+        }
+        return UP;
+    }
+
+    public Directions getPartner() {
+        switch (this) {
+            case UP:
+                return RIGHT;
+            case LEFT:
+                return UP;
+            case RIGHT:
+                return DOWN;
+            case DOWN:
+                break;
+        }
+        return LEFT;
+    }
+
+
 }

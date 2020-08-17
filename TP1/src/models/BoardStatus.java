@@ -8,21 +8,24 @@ public class BoardStatus {
     private Coordinate player;
     private Map<Coordinate, Boolean> goals;
 
-    public BoardStatus(Set<Coordinate> boxes, Map<Coordinate, Boolean> goals, Coordinate player) {
+    private Set<Coordinate> deadlocks;
+
+    public BoardStatus(Set<Coordinate> boxes, Map<Coordinate, Boolean> goals, Coordinate player, Set<Coordinate> deadlocks) {
         this.boxes = boxes;
         this.player = player;
         this.goals = goals;
+        this.deadlocks = deadlocks;
     }
 
     public boolean isSolved() {
         return boxes.equals(goals.keySet());
     }
 
-    public Set<Coordinate> getBoxes() {
+    Set<Coordinate> getBoxes() {
         return boxes;
     }
 
-    public Map<Coordinate, Boolean> getGoals() {
+    Map<Coordinate, Boolean> getGoals() {
         return this.goals;
     }
 
@@ -45,6 +48,29 @@ public class BoardStatus {
             }
         }
         return true;
+    }
+
+    boolean isDeadlock(Coordinate coordinate, Directions direction, Set<Coordinate> walls) {
+        if(deadlocks.contains(coordinate)) {
+            return true;
+        }
+
+        for(Directions dir : Directions.values()) {
+            if(dir != direction.getOpossite()) {
+                Coordinate firstDirection = new Coordinate(coordinate.getX(), coordinate.getY());
+                Coordinate secondDirection = new Coordinate(coordinate.getX(), coordinate.getY());
+                firstDirection.move(dir);
+                secondDirection.move(dir.getPartner());
+                if(edgePosition(walls, firstDirection) && edgePosition(walls, secondDirection)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean edgePosition(Set<Coordinate> walls, Coordinate coordinate) {
+        return walls.contains(coordinate) || boxes.contains(coordinate);
     }
 
     @Override

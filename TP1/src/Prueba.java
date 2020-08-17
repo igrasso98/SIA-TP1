@@ -12,4 +12,6 @@ public class Prueba {
     public void setValue(int newValue){
         this.value = newValue;
     }
+
+
 }

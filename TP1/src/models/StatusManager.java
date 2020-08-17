@@ -23,6 +23,6 @@ public class StatusManager {
                 goalsUpdated.replace(newBoxCoordinate, true);
             }
         }
-        return new BoardStatus(boxesUpdated, goalsUpdated, newCoordinate);
+        return new BoardStatus(boxesUpdated, goalsUpdated, newCoordinate, new HashSet<>());
     }
 }

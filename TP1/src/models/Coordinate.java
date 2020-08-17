@@ -44,4 +44,9 @@ public class Coordinate {
         result = prime * result + ((y == null) ? 0 : y.hashCode());
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "(" + x + "," + " " + y + ")";
+    }
 }
