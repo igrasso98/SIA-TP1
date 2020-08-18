@@ -12,7 +12,7 @@ public class BFSEngine extends SearchingAlgorithms {
         Node currentNode = node;
         Answer answer;
         if (currentNode.getStatus().isSolved()) {
-            answer = new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new HashSet<>(), currentNode.getMovements());
+            answer = new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements());
             return answer;
         }
 
@@ -32,17 +32,12 @@ public class BFSEngine extends SearchingAlgorithms {
                 child.setMovements(childrenMovements);
                 if (!(explored.contains(child.getStatus()) || frontier.contains(child))) {
                     if (child.getStatus().isSolved()) {
-                        for(BoardStatus stat : child.getMovements()){
-//                            board.printBoard(stat);
-                        }
-                        answer = new Answer(SUCCESS, child.getDepth(), child.getCost(), explored, frontier, child.getMovements());
-                        return answer;
+                        return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored.size(), frontier.size(), child.getMovements());
                     }
                     frontier.offer(child);
                 }
             }
         }
-        answer = new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored, frontier, currentNode.getMovements());
-        return answer;
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements());
     }
 }

@@ -14,7 +14,7 @@ public class IDDFSEngine extends SearchingAlgorithms {
     public Answer perform(Node node, Board board, int limit) {
         Node currentNode = node;
         if (node.getStatus().isSolved()) {
-            return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
+            return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements());
         }
 
         int maxLimit = limit;
@@ -22,9 +22,9 @@ public class IDDFSEngine extends SearchingAlgorithms {
         Set<BoardStatus> explored = new HashSet<>();
         Stack<Node> backUpStack = new Stack<>();
         backUpStack.add(node);
-        while(!backUpStack.isEmpty()) {
+        while (!backUpStack.isEmpty()) {
             frontier.push(backUpStack.pop());
-            while(!frontier.isEmpty()) {
+            while (!frontier.isEmpty()) {
                 currentNode = frontier.pop();
                 explored.add(currentNode.getStatus());
                 List<Node> children = getChildren(currentNode, board);
@@ -34,9 +34,9 @@ public class IDDFSEngine extends SearchingAlgorithms {
                     child.setMovements(childrenMovements);
                     if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                         if (child.getStatus().isSolved()) {
-                            return new Answer(SUCCESS, child.getDepth(), child.getCost(), new HashSet<>(), new Stack<>(), child.getMovements());
+                            return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored.size(), frontier.size(), child.getMovements());
                         }
-                        if(child.getDepth() < maxLimit) {
+                        if (child.getDepth() < maxLimit) {
                             frontier.push(child);
                         } else {
                             backUpStack.add(child);
@@ -46,7 +46,7 @@ public class IDDFSEngine extends SearchingAlgorithms {
             }
             maxLimit += 30;
         }
-        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements());
     }
 
 }

@@ -12,7 +12,7 @@ public class GreedyEngine extends SearchingAlgorithms {
     public Answer perform(Node node, Board board, Heuristics heuristic) {
         Node currentNode = node;
         if (currentNode.getStatus().isSolved()) {
-             return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new HashSet<>(), currentNode.getMovements());
+            return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements());
 
         }
 
@@ -31,16 +31,13 @@ public class GreedyEngine extends SearchingAlgorithms {
                 child.setMovements(childrenMovements);
                 if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                     if (child.getStatus().isSolved()) {
-                        for (BoardStatus stat : child.getMovements()) {
-                            board.printBoard(stat);
-                        }
-                        return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored, frontier, child.getMovements());
+                        return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored.size(), frontier.size(), child.getMovements());
                     }
                     frontier.add(child);
                 }
             }
         }
-        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored, frontier, currentNode.getMovements());
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements());
     }
 
 }

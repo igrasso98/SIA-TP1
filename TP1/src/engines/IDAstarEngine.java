@@ -15,17 +15,18 @@ public class IDAstarEngine extends SearchingAlgorithms {
     public Answer perform(Node node, Board board, Heuristics heuristic, int limit) {
         Node currentNode = node;
         if (node.getStatus().isSolved()) {
-            return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
+            return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements());
         }
 
         int maxLimit = limit;
         Queue<Node> frontier = new PriorityQueue<>(Comparator.comparingInt(t -> (heuristic.compute(t.getStatus()) + t.getCost())));
         Set<BoardStatus> explored = new HashSet<>();
-        Queue<Node> backUpStack = new PriorityQueue<>(Comparator.comparingInt(t -> (heuristic.compute(t.getStatus()) + t.getCost())));;
+        Queue<Node> backUpStack = new PriorityQueue<>(Comparator.comparingInt(t -> (heuristic.compute(t.getStatus()) + t.getCost())));
+        ;
         backUpStack.add(node);
-        while(!backUpStack.isEmpty()) {
+        while (!backUpStack.isEmpty()) {
             frontier.add(backUpStack.poll());
-            while(!frontier.isEmpty()) {
+            while (!frontier.isEmpty()) {
                 currentNode = frontier.poll();
                 explored.add(currentNode.getStatus());
                 List<Node> children = getChildren(currentNode, board);
@@ -35,9 +36,9 @@ public class IDAstarEngine extends SearchingAlgorithms {
                     child.setMovements(childrenMovements);
                     if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                         if (child.getStatus().isSolved()) {
-                            return new Answer(SUCCESS, child.getDepth(), child.getCost(), new HashSet<>(), new Stack<>(), child.getMovements());
+                            return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored.size(), frontier.size(), child.getMovements());
                         }
-                        if(child.getDepth() < maxLimit) {
+                        if (child.getDepth() < maxLimit) {
                             frontier.add(child);
                         } else {
                             backUpStack.add(child);
@@ -47,6 +48,6 @@ public class IDAstarEngine extends SearchingAlgorithms {
             }
             maxLimit += 30;
         }
-        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements());
     }
 }

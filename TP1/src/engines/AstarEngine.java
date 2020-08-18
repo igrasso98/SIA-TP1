@@ -16,30 +16,30 @@ public class AstarEngine extends SearchingAlgorithms {
     public Answer perform(Node node, Board board, Heuristics heuristic) {
         Node currentNode = node;
         if (node.getStatus().isSolved()) {
-                return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
+            return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements());
         }
 
         Queue<Node> frontier = new PriorityQueue<>(Comparator.comparingInt(t -> (heuristic.compute(t.getStatus()) + t.getCost())));
         Set<BoardStatus> explored = new HashSet<>();
 
         frontier.add(node);
-        while (!frontier.isEmpty()){
+        while (!frontier.isEmpty()) {
             currentNode = frontier.poll();
             explored.add(currentNode.getStatus());
             List<Node> children = getChildren(currentNode, board);
-            for(Node child : children){
+            for (Node child : children) {
                 Set<BoardStatus> childrenMovements = new LinkedHashSet<>(currentNode.getMovements());
                 childrenMovements.add(child.getStatus());
                 child.setMovements(childrenMovements);
                 if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                     if (child.getStatus().isSolved()) {
-                        return new Answer(SUCCESS, child.getDepth(), child.getCost(), new HashSet<>(), new Stack<>(), child.getMovements());
+                        return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored.size(), frontier.size(), child.getMovements());
                     }
                     frontier.add(child);
                 }
             }
         }
 
-        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements());
     }
 }
