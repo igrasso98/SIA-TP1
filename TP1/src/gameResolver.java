@@ -1,13 +1,6 @@
-import Heuristics.Euclidean;
-import Heuristics.Manhattan;
-import engines.AstarEngine;
-import engines.BFSEngine;
-import engines.DFSEngine;
+import heuristics.Manhattan;
 import engines.GreedyEngine;
-import models.Board;
-import models.BoardStatus;
-import models.Coordinate;
-import models.Node;
+import models.*;
 
 import java.util.*;
 

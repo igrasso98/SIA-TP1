@@ -1,6 +1,6 @@
 package engines;
 
-import Heuristics.Heuristics;
+import heuristics.Heuristics;
 import models.Board;
 import models.BoardStatus;
 import models.Node;
