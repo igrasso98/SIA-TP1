@@ -29,10 +29,6 @@ public class AstarEngine extends SearchingAlgorithms {
                 child.setMovements(childrenMovements);
                 if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                     if (child.getStatus().isSolved()) {
-                        for(BoardStatus stat : child.getMovements()){
-                            board.printBoard(stat);
-                        }
-//                        return Solution(child);
                         return child;
                     }
                     frontier.add(child);

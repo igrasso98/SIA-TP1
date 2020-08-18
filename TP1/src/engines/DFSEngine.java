@@ -34,7 +34,6 @@ public class DFSEngine extends SearchingAlgorithms {
                             board.printBoard(stat);
                         }
                         return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored, frontier, child.getMovements());
-
                     }
                     frontier.push(child);
                 }
