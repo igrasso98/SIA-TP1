@@ -37,21 +37,33 @@ public class BoardParser {
         return false;
     }
 
-    public static Set<Coordinate> getBoxes(char[][] board) {
+    public static Set<Coordinate> getObject(char[][] board, char object) {
         int boardWidth = board[0].length;
         int boardHeigh = board.length;
 
-        Set<Coordinate> boxes = new HashSet<>();
+        Set<Coordinate> coordinates = new HashSet<>();
         for(int i = 0; i < boardHeigh; i++) {
             for(int j = 0; j < boardWidth; j++) {
-                if(board[i][j] == '$') {
-                    boxes.add(new Coordinate(i, j));
+                if(board[i][j] == object) {
+                    coordinates.add(new Coordinate(i, j));
                 }
             }
         }
-
-        return boxes;
+        return coordinates;
     }
 
+    public static Coordinate getPlayer(char[][] board, char object) {
+        int boardWidth = board[0].length;
+        int boardHeigh = board.length;
+
+        for(int i = 0; i < boardHeigh; i++) {
+            for(int j = 0; j < boardWidth; j++) {
+                if(board[i][j] == object) {
+                    return new Coordinate(i,j);
+                }
+            }
+        }
+        return null;
+    }
 
 }
