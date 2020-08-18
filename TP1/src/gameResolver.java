@@ -84,33 +84,33 @@ public class gameResolver {
 
         AstarEngine astarEngine = new AstarEngine();
         currentTime = System.currentTimeMillis();
-        Node node = astarEngine.perform(root, board, manhattan);
+        node = astarEngine.perform(root, board, manhattan);
         System.out.println("\nAStar Engine: Manhattan");
-        System.out.println("\tDepth:" + node.getDepth());
+        System.out.println("\t" + node.toString());
         System.out.println("\tTime: " + (double)(System.currentTimeMillis() - currentTime)/1000);
 
         node = astarEngine.perform(root, board, euclidean);
         System.out.println("\nAStar Engine: Euclidean");
-        System.out.println("\tDepth:" + node.getDepth());
+        System.out.println("\t" + node.toString());
         System.out.println("\tTime: " + (double)(System.currentTimeMillis() - currentTime)/1000);
 
         IDDFSEngine iddfs = new IDDFSEngine();
         currentTime = System.currentTimeMillis();
         node = iddfs.perform(root, board, 100);
         System.out.println("\nIDDFS Engine Engine:");
-        System.out.println("\tDepth:" + node.getDepth());
+        System.out.println("\t" + node.toString());
         System.out.println("\tTime: " + (double)(System.currentTimeMillis() - currentTime)/1000);
 
         IDAstarEngine idAstarEngine = new IDAstarEngine();
         currentTime = System.currentTimeMillis();
         node = idAstarEngine.perform(root, board, euclidean, 100);
         System.out.println("\nIDAStar Engine: Euclidean");
-        System.out.println("\tDepth:" + node.getDepth());
+        System.out.println("\t" + node.toString());
         System.out.println("\tTime: " + (double)(System.currentTimeMillis() - currentTime)/1000);
 
         node = idAstarEngine.perform(root, board, manhattan, 100);
         System.out.println("\nIDAStar Engine: Manhattan");
-        System.out.println("\tDepth:" + node.getDepth());
+        System.out.println("\t" + node.toString());
         System.out.println("\tTime: " + (double)(System.currentTimeMillis() - currentTime)/1000);
 
     }

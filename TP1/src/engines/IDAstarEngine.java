@@ -1,16 +1,21 @@
 package engines;
 
-import Heuristics.Heuristics;
+import heuristics.*;
+import models.Answer;
 import models.Board;
 import models.BoardStatus;
 import models.Node;
 
 import java.util.*;
 
+import static models.AnswerStatus.FAIL;
+import static models.AnswerStatus.SUCCESS;
+
 public class IDAstarEngine extends SearchingAlgorithms {
-    public Node perform(Node node, Board board, Heuristics heuristic, int limit) {
+    public Answer perform(Node node, Board board, Heuristics heuristic, int limit) {
+        Node currentNode = node;
         if (node.getStatus().isSolved()) {
-            return node;
+            return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
         }
 
         int maxLimit = limit;
@@ -21,7 +26,7 @@ public class IDAstarEngine extends SearchingAlgorithms {
         while(!backUpStack.isEmpty()) {
             frontier.add(backUpStack.poll());
             while(!frontier.isEmpty()) {
-                Node currentNode = frontier.poll();
+                currentNode = frontier.poll();
                 explored.add(currentNode.getStatus());
                 List<Node> children = getChildren(currentNode, board);
                 for (Node child : children) {
@@ -30,7 +35,7 @@ public class IDAstarEngine extends SearchingAlgorithms {
                     child.setMovements(childrenMovements);
                     if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                         if (child.getStatus().isSolved()) {
-                            return child;
+                            return new Answer(SUCCESS, child.getDepth(), child.getCost(), new HashSet<>(), new Stack<>(), child.getMovements());
                         }
                         if(child.getDepth() < maxLimit) {
                             frontier.add(child);
@@ -42,6 +47,6 @@ public class IDAstarEngine extends SearchingAlgorithms {
             }
             maxLimit += 30;
         }
-        return null;
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
     }
 }

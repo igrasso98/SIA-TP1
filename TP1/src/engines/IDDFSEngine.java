@@ -1,15 +1,20 @@
 package engines;
 
+import models.Answer;
 import models.Board;
 import models.BoardStatus;
 import models.Node;
 
 import java.util.*;
 
+import static models.AnswerStatus.FAIL;
+import static models.AnswerStatus.SUCCESS;
+
 public class IDDFSEngine extends SearchingAlgorithms {
-    public Node perform(Node node, Board board, int limit) {
+    public Answer perform(Node node, Board board, int limit) {
+        Node currentNode = node;
         if (node.getStatus().isSolved()) {
-            return node;
+            return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
         }
 
         int maxLimit = limit;
@@ -20,7 +25,7 @@ public class IDDFSEngine extends SearchingAlgorithms {
         while(!backUpStack.isEmpty()) {
             frontier.push(backUpStack.pop());
             while(!frontier.isEmpty()) {
-                Node currentNode = frontier.pop();
+                currentNode = frontier.pop();
                 explored.add(currentNode.getStatus());
                 List<Node> children = getChildren(currentNode, board);
                 for (Node child : children) {
@@ -29,7 +34,7 @@ public class IDDFSEngine extends SearchingAlgorithms {
                     child.setMovements(childrenMovements);
                     if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                         if (child.getStatus().isSolved()) {
-                            return child;
+                            return new Answer(SUCCESS, child.getDepth(), child.getCost(), new HashSet<>(), new Stack<>(), child.getMovements());
                         }
                         if(child.getDepth() < maxLimit) {
                             frontier.push(child);
@@ -41,7 +46,7 @@ public class IDDFSEngine extends SearchingAlgorithms {
             }
             maxLimit += 30;
         }
-        return null;
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), new HashSet<>(), new Stack<>(), currentNode.getMovements());
     }
 
 }
