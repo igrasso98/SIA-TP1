@@ -1,11 +1,10 @@
 {
   "config": {
-    "timelimit": 10,
-    "algorithm-name": "DFS",
-    "heuristic": "-",
-    "limit": -1,
-    "step": -1,
-    "level-number": 3,
-    "more-info": " "
+    "timelimit": -1.0,
+    "algorithm-name": "IDASTAR",
+    "heuristic": "Manhattan",
+    "limit": 100,
+    "step": 100,
+    "level-number": 8
   }
 }
