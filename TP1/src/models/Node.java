@@ -1,11 +1,8 @@
 package models;
 
-import engines.BFSEngine;
-
 import java.util.*;
 
 public class Node {
-    private Set<BoardStatus> errorStatusHistory;
     private List<Node> children;
     private Set<BoardStatus> movements;
     private BoardStatus status;
@@ -13,21 +10,11 @@ public class Node {
     private Integer cost;
 
     public Node(BoardStatus status, int depth, int cost) {
-        this.errorStatusHistory = new HashSet<>();
         this.status = status;
         this.movements = new LinkedHashSet<>();
         this.children = new ArrayList<>();
         this.depth = depth;
         this.cost = cost;
-    }
-
-
-    public Set<BoardStatus> getErrorStatusHistory() {
-        return errorStatusHistory;
-    }
-
-    public void setErrorStatusHistory(Set<BoardStatus> errorStatusHistory) {
-        this.errorStatusHistory = errorStatusHistory;
     }
 
     public BoardStatus getStatus() {

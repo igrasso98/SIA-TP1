@@ -21,5 +21,26 @@ public abstract class SearchingAlgorithms {
         }
         return children;
     }
+
+    Engines getAlgorithm(String algorithm) {
+        algorithm = algorithm.toUpperCase();
+        switch (algorithm) {
+            case "DFS":
+                return new DFSEngine();
+            case "BFS":
+                return  new BFSEngine();
+            case "IDDFS":
+                return new IDDFSEngine();
+            case "GREEDY":
+                return  new GreedyEngine();
+            case "IDASTAR":
+                return new IDAstarEngine();
+            case "ASTAR":
+                return new AstarEngine();
+
+        }
+
+        return null;
+    }
 }
 

@@ -1,0 +1,11 @@
+{
+  "config": {
+    "timelimit": 10,
+    "algorithm-name": "BFS",
+    "heuristic": "-",
+    "limit": -1,
+    "step": -1,
+    "level-number": 3,
+    "more-info": " "
+  }
+}

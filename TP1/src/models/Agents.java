@@ -1,13 +1,17 @@
 package models;
 
-public enum Role {
+public enum Agents {
     WALL('#'),
     BOX('$'),
     PLAYER('@'),
-    SPACE(' ');
+    GOALS('*');
 
     private char identifier;
-    Role(char id) {
+    Agents(char id) {
         this.identifier = id;
+    }
+
+    public char getValue() {
+        return identifier;
     }
 }
