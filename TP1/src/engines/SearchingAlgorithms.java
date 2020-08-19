@@ -1,8 +1,10 @@
 package engines;
 
+import heuristics.Heuristics;
 import models.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class SearchingAlgorithms {
@@ -11,11 +13,23 @@ public abstract class SearchingAlgorithms {
         BoardStatus currentStatus = node.getStatus();
         List<Node> children = new ArrayList<>();
         List<Directions> validDirections = board.getValidDirections(currentStatus);
-        for(Directions direction : validDirections) {
+        for (Directions direction : validDirections) {
             BoardStatus newBoardStatus = StatusManager.createStatus(currentStatus, direction);
-            Node newChildren = new Node(newBoardStatus, node.getDepth()+1, node.getCost()+1);
+            int cost = computeCost(node);
+            Node newChildren = new Node(newBoardStatus, node.getDepth() + 1, cost);
             children.add(newChildren);
         }
         return children;
     }
+
+    private int computeCost(Node currentNode) {
+        int aux = 0;
+        for (boolean val : currentNode.getStatus().getGoals().values()) {
+            if (!val) {
+                aux++;
+            }
+        }
+        return currentNode.getCost() + aux;
+    }
 }
+
