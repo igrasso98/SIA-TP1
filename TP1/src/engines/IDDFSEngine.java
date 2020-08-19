@@ -12,7 +12,7 @@ import static models.AnswerStatus.SUCCESS;
 
 public class IDDFSEngine extends SearchingAlgorithms implements Engines {
     @Override
-    public Answer perform(Node node, Board board, int timeLimit, Map<String, Object> info) {
+    public Answer perform(Node node, Board board, long timeLimit, Map<String, Object> info) {
         int limit = (Integer) info.get("limit");
         Node currentNode = node;
         long time = System.currentTimeMillis();

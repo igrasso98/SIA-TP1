@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface Engines {
 
-    public Answer perform(Node node, Board board, int timeLimit, Map<String, Object> info);
+    public Answer perform(Node node, Board board, long timeLimit, Map<String, Object> info);
 }

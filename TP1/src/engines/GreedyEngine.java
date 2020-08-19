@@ -10,7 +10,7 @@ import static models.AnswerStatus.*;
 public class GreedyEngine extends SearchingAlgorithms implements Engines {
 
     @Override
-    public Answer perform(Node node, Board board, int timeLimit, Map<String, Object> info) {
+    public Answer perform(Node node, Board board, long timeLimit, Map<String, Object> info) {
         Heuristics heuristic = (Heuristics) info.get("heuristic");
         Node currentNode = node;
         long time = System.currentTimeMillis();

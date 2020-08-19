@@ -1,7 +1,7 @@
 {
   "config": {
     "timelimit": 10,
-    "algorithm-name": "BFS",
+    "algorithm-name": "DFS",
     "heuristic": "-",
     "limit": -1,
     "step": -1,

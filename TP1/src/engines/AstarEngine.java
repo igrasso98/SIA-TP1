@@ -11,7 +11,7 @@ import static models.AnswerStatus.SUCCESS;
 public class AstarEngine extends SearchingAlgorithms implements Engines {
 
     @Override
-    public Answer perform(Node node, Board board, int timeLimit, Map<String, Object> info) {
+    public Answer perform(Node node, Board board, long timeLimit, Map<String, Object> info) {
         Heuristics heuristic = (Heuristics) info.get("heuristic");
         Node currentNode = node;
         long time = System.currentTimeMillis();

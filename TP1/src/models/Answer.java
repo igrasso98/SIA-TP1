@@ -36,11 +36,6 @@ public class Answer {
         answer.append("SOLUTION:").append(Arrays.toString(solution.toArray())).append("\n");
         answer.append("TIME:").append((float)(time/1000)).append("seconds\n");
 
-        return "STATUS:" + status + "\n" +
-                "DEPTH:" + depth + "\n" +
-                "COST:" + cost + "\n" +
-                "EXPLORED:" + explored + "\n" +
-                "FRONTIER:" + frontier + "\n" +
-                "SOLUTION:" + Arrays.toString(solution.toArray()) + "\n";
+        return answer.toString();
     }
 }

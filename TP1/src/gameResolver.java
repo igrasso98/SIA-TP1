@@ -15,20 +15,8 @@ public class GameResolver {
         try {
             String filePath = new File("").getAbsolutePath();
             filePath += FilesInfo.baseLevelsPath + levelInfo.get("level-number") + FilesInfo.levelExtension;
-            FileReader fileReader = new FileReader(filePath);
-            int i;
-            while ((i=fileReader.read()) != -1) {
-                char c = (char) i;
-                System.out.print(c);
-            }
-
             char[][] map = getBoard(filePath);
-//            for(char[] row : map) {
-//                for(i = 0; i < row.length; i++) {
-//                    System.out.print(row[i] + " ");
-//                }
-//                System.out.println();
-//            }
+
             Map<String, Set<Coordinate>> elements = BoardParser.getElements(map);
             Set<Coordinate> deadlocks = BoardParser.findDeadlocks(map);
             Board board = new Board(deadlocks, elements.get("walls"), elements.get("goals"));
@@ -36,8 +24,8 @@ public class GameResolver {
             BoardStatus initialStatus = initializeStatus(board, elements);
             Node root = initializeRoot(initialStatus);
 
-            int timeLimit = (Integer) engineInfo.get("timelimit");
-            Engines engine = (Engines) engineInfo.get("algorithm");
+            long timeLimit = (Long) engineInfo.get("timelimit");
+            Engines engine = (Engines) engineInfo.get("algorithm-name");
             if(engine != null && EngineType.contains(engine.toString())) {
                 return engine.perform(root, board, timeLimit, engineInfo);
             }
@@ -72,8 +60,8 @@ public class GameResolver {
         FileReader fileReader = new FileReader(path);
         int i;
         int indexRow = 0, indexCols = 0;
-        int cols = getColumns(fileReader);
-        int rows = getRows(fileReader);
+        int cols = getColumns(path);
+        int rows = getRows(path) + 1;
         char[][] table = new char[rows][cols];
         while ((i=fileReader.read()) != -1) {
             char c = (char) i;
@@ -87,21 +75,21 @@ public class GameResolver {
         return table;
     }
 
-    private static int getColumns(FileReader fr) throws IOException {
+    private static int getColumns(String path) throws IOException {
+        FileReader fileReader = new FileReader(path);
         int i;
         int size = 0;
-        while ((i=fr.read()) != -1 && (char)i != '\n') {
+        while ((i=fileReader.read()) != -1 && (char)i != '\n') {
             size++;
         }
         return size;
     }
 
-    private static int getRows(FileReader fr) throws IOException {
+    private static int getRows(String path) throws IOException {
+        FileReader fileReader = new FileReader(path);
         int i;
         int size = 0;
-        while ((i=fr.read()) != -1) {
-            int a = i;
-            System.out.print((char) i);
+        while ((i=fileReader.read()) != -1) {
             if((char) i == '\n') {
                 size++;
             }

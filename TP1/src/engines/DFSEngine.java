@@ -10,7 +10,7 @@ import static models.AnswerStatus.SUCCESS;
 public class DFSEngine extends SearchingAlgorithms implements Engines {
 
     @Override
-    public Answer perform(Node node, Board board, int timeLimit, Map<String, Object> info) {
+    public Answer perform(Node node, Board board, long timeLimit, Map<String, Object> info) {
         Node currentNode = node;
         long time = System.currentTimeMillis();
         if (currentNode.getStatus().isSolved()) {

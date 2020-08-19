@@ -15,7 +15,7 @@ public enum EngineType {
 
     public static boolean contains(String name) {
         for(EngineType engine : EngineType.values()) {
-            if(engine.engine.toString() == name) {
+            if(engine.engine.toString().equals(name)) {
                 return true;
             }
         }

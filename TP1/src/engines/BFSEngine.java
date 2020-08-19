@@ -9,7 +9,7 @@ import static models.AnswerStatus.SUCCESS;
 
 public class BFSEngine extends SearchingAlgorithms implements Engines {
     @Override
-    public Answer perform(Node node, Board board, int timeLimit, Map<String, Object> info) {
+    public Answer perform(Node node, Board board, long timeLimit, Map<String, Object> info) {
         Node currentNode = node;
         Answer answer;
         long time = System.currentTimeMillis();

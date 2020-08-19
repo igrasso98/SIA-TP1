@@ -13,7 +13,7 @@ import static models.AnswerStatus.SUCCESS;
 
 public class IDAstarEngine extends SearchingAlgorithms implements Engines {
     @Override
-    public Answer perform(Node node, Board board, int timeLimit, Map<String, Object> info) {
+    public Answer perform(Node node, Board board, long timeLimit, Map<String, Object> info) {
         Heuristics heuristic = (Heuristics) info.get("heuristic");
         int limit = (Integer) info.get("limit");
         Node currentNode = node;
