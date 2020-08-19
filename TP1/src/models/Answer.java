@@ -1,9 +1,10 @@
 package models;
 
-import models.Coordinate;
+import com.sun.xml.internal.ws.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Set;
 
 public class Answer {
@@ -13,9 +14,9 @@ public class Answer {
     private int explored;
     private int frontier;
     private Set<BoardStatus> solution;
-    private long time;
-
-    public Answer(AnswerStatus status, int depth, int cost, int explored, int frontier, Set<BoardStatus> solution, long time){
+    private double time;
+    private Map<String, Object> levelInfo;
+    public Answer(AnswerStatus status, int depth, int cost, int explored, int frontier, Set<BoardStatus> solution, double time, Map<String, Object> levelInfo){
         this.status = status;
         this.depth = depth;
         this.cost = cost;
@@ -23,19 +24,29 @@ public class Answer {
         this.frontier = frontier;
         this.solution = solution;
         this.time = time;
+        this.levelInfo = levelInfo;
     }
 
     @Override
     public String toString() {
         StringBuilder answer = new StringBuilder();
-        answer.append("STATUS:").append(status).append("\n");
-        answer.append("DEPTH:").append(depth).append("\n");
-        answer.append("COST:").append(cost).append("\n");
-        answer.append("EXPLORED:").append(explored).append("\n");
-        answer.append("FRONTIER:").append(frontier).append("\n");
-        answer.append("SOLUTION:").append(Arrays.toString(solution.toArray())).append("\n");
-        answer.append("TIME:").append((float)(time/1000)).append("seconds\n");
-
+        answer.append("\nInitial Parameters:\n");
+        printParameters(answer);
+        answer.append("\nResults:\n");
+        answer.append("* Status:").append(status).append("\n");
+        answer.append("* Depth:").append(depth).append("\n");
+        answer.append("* Cost:").append(cost).append("\n");
+        answer.append("* Explored:").append(explored).append("\n");
+        answer.append("* Nodes left in frontier:").append(frontier).append("\n");
+        answer.append("* Solution coordinates:").append(Arrays.toString(solution.toArray())).append("\n");
+        answer.append("* Time to solve:").append((float)(time/1000)).append("s\n");
         return answer.toString();
+    }
+
+    private void printParameters(StringBuilder answer) {
+        for(String label : levelInfo.keySet()) {
+            String info = String.format("* %s: ", StringUtils.capitalize(label).replace("-", " "));
+            answer.append(info).append(levelInfo.get(label)).append('\n');
+        }
     }
 }

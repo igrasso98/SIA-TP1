@@ -11,11 +11,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class GameResolver {
-    public static Answer resolve(Map<String, Object> engineInfo, Map<String, Object> levelInfo) {
+
+    public static Answer resolve(Map<String, Object> levelInfo) {
         try {
             String filePath = new File("").getAbsolutePath();
             filePath += FilesInfo.baseLevelsPath + levelInfo.get("level-number") + FilesInfo.levelExtension;
             char[][] map = getBoard(filePath);
+            printMap(map);
 
             Map<String, Set<Coordinate>> elements = BoardParser.getElements(map);
             Set<Coordinate> deadlocks = BoardParser.findDeadlocks(map);
@@ -24,10 +26,10 @@ public class GameResolver {
             BoardStatus initialStatus = initializeStatus(board, elements);
             Node root = initializeRoot(initialStatus);
 
-            long timeLimit = (Long) engineInfo.get("timelimit");
-            Engines engine = (Engines) engineInfo.get("algorithm-name");
+            double timeLimit = (Double) levelInfo.get("timelimit")*1000;
+            Engines engine = (Engines) levelInfo.get("algorithm-name");
             if(engine != null && EngineType.contains(engine.toString())) {
-                return engine.perform(root, board, timeLimit, engineInfo);
+                return engine.perform(root, board, timeLimit, levelInfo);
             }
 
         } catch (FileNotFoundException e) {
@@ -95,5 +97,14 @@ public class GameResolver {
             }
         }
         return size;
+    }
+
+    public static void printMap(char[][] board) {
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                System.out.print(board[i][j]);
+            }
+            System.out.println();
+        }
     }
 }

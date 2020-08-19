@@ -12,4 +12,13 @@ public enum HeuristicType {
     public Heuristics getHeuristic() {
         return this.heuristic;
     }
+
+    public static boolean contains(String name) {
+        for(HeuristicType h : HeuristicType.values()) {
+            if(h.toString().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -1,11 +1,10 @@
 package heuristics;
-import models.Board;
 import models.BoardStatus;
 import models.Coordinate;
 import java.util.Map;
 import java.util.Set;
 
-public class BoxesToGoals implements Heuristics {
+public class Euclidean implements Heuristics {
 
     @Override
     public int compute(BoardStatus currentStatus) {
@@ -14,8 +13,8 @@ public class BoxesToGoals implements Heuristics {
 
     private int distanceFromPlayerToBoxes(Coordinate player, Set<Coordinate> boxes) {
         int distance = 0;
-        for (Coordinate box : boxes){
-            distance += manhattanDistance(box, player);
+        for (Coordinate box : boxes) {
+            distance += euclideanDistance(box,player);
         }
         return distance;
     }
@@ -25,21 +24,19 @@ public class BoxesToGoals implements Heuristics {
         for (Coordinate goal : goals.keySet()) {
             if (!goals.get(goal)) {
                 for (Coordinate box : boxes) {
-                    if(!goals.containsKey(box)){
-                        distance += manhattanDistance(box, goal);
-                    }
+                    distance += euclideanDistance(box,goal);
                 }
             }
         }
         return distance;
     }
 
-    private int manhattanDistance(Coordinate c1, Coordinate c2){
-        return (Math.abs(c1.getX() - c2.getX()) + Math.abs(c1.getY() - c2.getY()));
+    private int euclideanDistance(Coordinate c1, Coordinate c2){
+        return (int)(Math.sqrt(Math.pow(c1.getX() - c2.getX(), 2) + Math.pow(c1.getY() - c2.getY(), 2)));
     }
 
     @Override
     public String toString() {
-        return "Manhattan";
+        return "Euclidean";
     }
 }

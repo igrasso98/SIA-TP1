@@ -2,7 +2,6 @@ import heuristics.*;
 
 import models.*;
 import engines.*;
-import models.Coordinate;
 import org.json.simple.*;
 
 import org.json.simple.parser.JSONParser;
@@ -67,7 +66,7 @@ public class Start {
 //        Manhattan manhattan = new Manhattan();
 //        Euclidean euclidean = new Euclidean();
 //        Answer node;
-
+//
 //        DFSEngine dfs = new DFSEngine();
 //        currentTime = System.currentTimeMillis();
 //        Map<String, Object> map = new HashMap<>();
@@ -84,7 +83,7 @@ public class Start {
 //        System.out.println("\nBFS Engine: ");
 //        System.out.println("\t" + node.toString());
 //        System.out.println("\tTime: " + (System.currentTimeMillis() - currentTime)/1000);
-
+//
 //        GreedyEngine greedy = new GreedyEngine();
 //        currentTime = System.currentTimeMillis();
 //        node = greedy.perform(root, board, manhattan);
@@ -142,13 +141,25 @@ public class Start {
             JSONObject json = (JSONObject) parser.parse(reader);
 
             JSONObject configs = (JSONObject) json.get("config");
-            List<String> algorithmArgs = Arrays.asList("timelimit", "limit", "step", "algorithm-name");
-            List<String> levelArgs = Arrays.asList("more-info", "level-number");
-//
-            Map<String, Object> algsInfo = getArgs(configs, algorithmArgs);
-            Map<String, Object> levelInfo = getArgs(configs, levelArgs);
+            List<String> levelArgs = Arrays.asList("timelimit", "limit", "step", "algorithm-name", "heuristic", "level-number");
 
-            Answer ans = GameResolver.resolve(algsInfo, levelInfo);
+            Map<String, Object> levelInfo = getArgs(configs, levelArgs);
+            if(!levelInfo.containsKey("algorithm-name")) {
+                System.out.println("Algorithm not found");
+                return;
+            }
+            if(!levelInfo.containsKey("heuristic")) {
+                System.out.println("Heuristic not found");
+                return;
+            }
+            if(levelInfo.containsKey("level-number")) {
+                if((Long) levelInfo.get("level-number") > 9 || (Long) levelInfo.get("level-number") < 0) {
+                    System.out.println("No such level, levels 1 to 9 are available");
+                    return;
+                }
+            }
+
+            Answer ans = GameResolver.resolve(levelInfo);
             System.out.println(ans);
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,12 +172,18 @@ public class Start {
         for(String arg : args) {
             switch (arg) {
                 case "heuristic":
-                    HeuristicType heuristics = HeuristicType.valueOf(((String) json.get(arg)).toUpperCase());
-                    argsToReturn.put(arg, heuristics);
+                    String heuristicName = ((String) json.get(arg)).toUpperCase();
+                    if(!heuristicName.isEmpty() && HeuristicType.contains(heuristicName)) {
+                        HeuristicType heuristics = HeuristicType.valueOf(heuristicName);
+                        argsToReturn.put(arg, heuristics.getHeuristic());
+                    }
                     break;
                 case "algorithm-name":
-                    Engines engine = EngineType.valueOf(((String) json.get(arg)).toUpperCase()).getEngine();
-                    argsToReturn.put(arg, engine);
+                    String algorithmName = ((String) json.get(arg));
+                    if(!algorithmName.isEmpty() && EngineType.contains(algorithmName)) {
+                        EngineType engine = EngineType.valueOf(algorithmName.toUpperCase());
+                        argsToReturn.put(arg, engine.getEngine());
+                    }
                     break;
                 default:
                     argsToReturn.put(arg, json.get(arg));
