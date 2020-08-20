@@ -16,11 +16,12 @@ public class Start {
     public static void main(String[] args) {
         JSONParser parser = new JSONParser();
         String filePath;
-        if(args.length != 0) {
-            filePath = args[0];
-        } else {
-            filePath = new File("").getAbsolutePath().concat("/TP1/src/config.json");
-        }
+        filePath = args[0];
+//        if(args.length != 0) {
+//            filePath = args[0];
+//        } else {
+//
+//        }
         try {
             Reader reader = new FileReader(filePath);
             JSONObject json = (JSONObject) parser.parse(reader);

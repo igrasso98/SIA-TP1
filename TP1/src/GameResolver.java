@@ -4,23 +4,19 @@ import models.*;
 import parser.BoardParser;
 import utils.FilesInfo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class GameResolver {
     private static int levelQ = 9;
     public static Answer resolve(Map<String, Object> levelInfo) {
         try {
-            String filePath = new File("").getAbsolutePath();
+            String filePath = "";
             long levelNumber = (Long) levelInfo.get("level-number");
             if(levelNumber < 0) {
                 Random rand = new Random();
                 levelNumber = rand.nextInt(levelQ) + 1;
             }
-
             filePath += FilesInfo.baseLevelsPath + levelNumber + FilesInfo.levelExtension;
             char[][] map = getBoard(filePath);
             printMap(map);
@@ -65,13 +61,13 @@ public class GameResolver {
     }
 
     private static char[][] getBoard(String path) throws IOException {
-        FileReader fileReader = new FileReader(path);
+        InputStream inputStream = GameResolver.class.getResourceAsStream(path);
         int i;
         int indexRow = 0, indexCols = 0;
         int cols = getColumns(path);
         int rows = getRows(path) + 1;
         char[][] table = new char[rows][cols];
-        while ((i=fileReader.read()) != -1) {
+        while ((i=inputStream.read()) != -1) {
             char c = (char) i;
             if(c == '\n') {
                 indexCols = 0;
@@ -84,20 +80,22 @@ public class GameResolver {
     }
 
     private static int getColumns(String path) throws IOException {
-        FileReader fileReader = new FileReader(path);
+        InputStream inputStream =  GameResolver.class.getResourceAsStream(path);
+
         int i;
         int size = 0;
-        while ((i=fileReader.read()) != -1 && (char)i != '\n') {
+        while ((i=inputStream.read()) != -1 && (char)i != '\n') {
             size++;
         }
         return size;
     }
 
     private static int getRows(String path) throws IOException {
-        FileReader fileReader = new FileReader(path);
+        InputStream inputStream =  GameResolver.class.getResourceAsStream(path);
+
         int i;
         int size = 0;
-        while ((i=fileReader.read()) != -1) {
+        while ((i=inputStream.read()) != -1) {
             if((char) i == '\n') {
                 size++;
             }
