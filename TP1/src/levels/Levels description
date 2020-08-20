@@ -1,0 +1,11 @@
+Initial printing
+# -> wall
+@ -> player
+$ -> box
+* -> goal
+
+Status printing
+# -> wall
+L -> player
+E -> goal completed
+F -> goal
