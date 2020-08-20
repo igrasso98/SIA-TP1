@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.*;
 
 public class GameResolver {
-    private static int levelQ = 9;
+    private static int levelQ = 5;
     public static Answer resolve(Map<String, Object> levelInfo) {
         try {
             String filePath = "";
@@ -48,7 +48,7 @@ public class GameResolver {
         for(Coordinate coordinate : elements.get("goals")) {
             goals.put(coordinate, false);
         }
-        return new BoardStatus(elements.get("boxes"), goals, player);
+        return new BoardStatus(elements.get("boxes"), goals, player, 0);
     }
 
     private static Node initializeRoot(BoardStatus initialStatus) {
