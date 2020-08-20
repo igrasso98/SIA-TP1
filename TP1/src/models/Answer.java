@@ -16,7 +16,8 @@ public class Answer {
     private Set<BoardStatus> solution;
     private double time;
     private Map<String, Object> levelInfo;
-    public Answer(AnswerStatus status, int depth, int cost, int explored, int frontier, Set<BoardStatus> solution, double time, Map<String, Object> levelInfo){
+    private Board board;
+    public Answer(AnswerStatus status, int depth, int cost, int explored, int frontier, Set<BoardStatus> solution, double time, Map<String, Object> levelInfo, Board board){
         this.status = status;
         this.depth = depth;
         this.cost = cost;
@@ -25,6 +26,7 @@ public class Answer {
         this.solution = solution;
         this.time = time;
         this.levelInfo = levelInfo;
+        this.board = board;
     }
 
     @Override
@@ -32,6 +34,9 @@ public class Answer {
         StringBuilder answer = new StringBuilder();
         answer.append("\nInitial Parameters:\n");
         printParameters(answer);
+        for(BoardStatus bs : solution) {
+            board.printBoard(bs);
+        }
         answer.append("\nResults:\n");
         answer.append("* Status:").append(status).append("\n");
         answer.append("* Depth:").append(depth).append("\n");

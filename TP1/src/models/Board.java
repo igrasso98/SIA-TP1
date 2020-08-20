@@ -115,12 +115,13 @@ public class Board {
             for(int j=0 ; j <=height ; j++){
                 Coordinate aux = new Coordinate(i,j);
                 if(board.containsKey(aux)){
-                    System.out.print(board.get(aux));
+                    System.out.print(board.get(aux) + " ");
                 } else {
-                    System.out.print("_");
+                    System.out.print("__");
                 }
             }
             System.out.println();
         }
+        System.out.println("\n-------------\n");
     }
 }

@@ -11,11 +11,17 @@ import java.io.IOException;
 import java.util.*;
 
 public class GameResolver {
-
+    private static int levelQ = 9;
     public static Answer resolve(Map<String, Object> levelInfo) {
         try {
             String filePath = new File("").getAbsolutePath();
-            filePath += FilesInfo.baseLevelsPath + levelInfo.get("level-number") + FilesInfo.levelExtension;
+            long levelNumber = (Long) levelInfo.get("level-number");
+            if(levelNumber < 0) {
+                Random rand = new Random();
+                levelNumber = rand.nextInt(levelQ) + 1;
+            }
+
+            filePath += FilesInfo.baseLevelsPath + levelNumber + FilesInfo.levelExtension;
             char[][] map = getBoard(filePath);
             printMap(map);
 

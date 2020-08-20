@@ -15,7 +15,7 @@ public class AstarEngine extends SearchingAlgorithms implements Engines {
         long time = System.currentTimeMillis();
         double maxTimeLimit = (timeLimit < 0) ? 2*time : timeLimit;
         if (node.getStatus().isSolved()) {
-                return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements(), System.currentTimeMillis() - time, info);
+                return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements(), System.currentTimeMillis() - time, info, board);
         }
         Queue<Node> frontier = new PriorityQueue<>((t1, t2) -> {
             int v1 = heuristic.compute(t1.getStatus()) + t1.getCost();
@@ -37,7 +37,7 @@ public class AstarEngine extends SearchingAlgorithms implements Engines {
                 child.setMovements(childrenMovements);
                 if (!((explored.contains(child.getStatus()) || frontier.contains(child)))) {
                     if (child.getStatus().isSolved()) {
-                        return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored.size(), frontier.size(), child.getMovements(), diff, info);
+                        return new Answer(SUCCESS, child.getDepth(), child.getCost(), explored.size(), frontier.size(), child.getMovements(), diff, info, board);
                     }
                     frontier.add(child);
                 }
@@ -48,11 +48,11 @@ public class AstarEngine extends SearchingAlgorithms implements Engines {
         }
 
         if(timeLimit > 0 && diff > timeLimit) {
-            return new Answer(TIMEOUT, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements(), diff, info);
+            return new Answer(TIMEOUT, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements(), diff, info, board);
 
         }
 
-        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements(), diff, info);
+        return new Answer(FAIL, currentNode.getDepth(), currentNode.getCost(), explored.size(), frontier.size(), currentNode.getMovements(), diff, info, board);
     }
 
     @Override
