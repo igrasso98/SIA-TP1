@@ -36,4 +36,9 @@ public class BoxesToGoalsMinDistance implements Heuristics {
     private int manhattanDistance(Coordinate c1, Coordinate c2) {
         return (Math.abs(c1.getX() - c2.getX()) + Math.abs(c1.getY() - c2.getY()));
     }
+
+    @Override
+    public String toString() {
+        return "BoxesToGoalsMinDistance";
+    }
 }

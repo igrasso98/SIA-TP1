@@ -2,9 +2,9 @@
   "config": {
     "timelimit": -1.0,
     "algorithm-name": "IDASTAR",
-    "heuristic": "Manhattan",
+    "heuristic": "Euclidean",
     "limit": 100,
     "step": 100,
-    "level-number": 8
+    "level-number": 4
   }
 }

@@ -24,4 +24,9 @@ public class BoxMoved extends BoxesToGoalsMinDistance implements Heuristics {
 
         return moves - goalsCompleted ;
     }
+
+    @Override
+    public String toString() {
+        return "BoxesMoved";
+    }
 }

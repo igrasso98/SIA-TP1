@@ -2,7 +2,9 @@ package heuristics;
 
 public enum HeuristicType {
     EUCLIDEAN(new Euclidean()),
-    MANHATTAN(new Manhattan());
+    BOXESTOGOALSMINDISTANCE(new BoxesToGoalsMinDistance()),
+    BOXESTOGOALS(new BoxesToGoals()),
+    BOXMOVED(new BoxMoved());
 
     private Heuristics heuristic;
     HeuristicType(Heuristics heuristics) {
@@ -15,7 +17,7 @@ public enum HeuristicType {
 
     public static boolean contains(String name) {
         for(HeuristicType h : HeuristicType.values()) {
-            if(h.toString().equals(name)) {
+            if(h.toString().toUpperCase().equals(name.toUpperCase())) {
                 return true;
             }
         }

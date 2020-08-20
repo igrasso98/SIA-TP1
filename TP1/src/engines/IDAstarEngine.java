@@ -16,7 +16,7 @@ public class IDAstarEngine extends SearchingAlgorithms implements Engines {
         Heuristics heuristic = (Heuristics) info.get("heuristic");
         long limit = (Long) info.get("limit");
         Node currentNode = node;
-        long time = System.currentTimeMillis();
+        double time = System.currentTimeMillis()*1.0;
         if (node.getStatus().isSolved()) {
             return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements(), System.currentTimeMillis() - time, info, board);
         }

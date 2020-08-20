@@ -40,6 +40,6 @@ public class BoxesToGoals implements Heuristics {
 
     @Override
     public String toString() {
-        return "Manhattan";
+        return "BoxesToGoals";
     }
 }

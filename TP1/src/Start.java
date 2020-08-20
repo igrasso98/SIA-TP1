@@ -42,8 +42,10 @@ public class Start {
                 }
             }
 
+            long time = System.currentTimeMillis();
             Answer ans = GameResolver.resolve(levelInfo);
             System.out.println(ans);
+            System.out.println((System.currentTimeMillis() - time)/1000.0);
         } catch (IOException | NoHeuristicException | ParseException | NoAlgorithmException | NoSuchLevelException e) {
             System.out.println(e.getMessage());
         }

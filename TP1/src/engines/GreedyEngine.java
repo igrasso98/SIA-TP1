@@ -57,7 +57,7 @@ public class GreedyEngine extends SearchingAlgorithms implements Engines {
 
     @Override
     public String toString() {
-        return "GREEDY";
+        return "Greedy";
     }
 
 }

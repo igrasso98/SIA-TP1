@@ -23,6 +23,9 @@ En donde
 * **timelimit** : hace referencia al tiempo máximo de ejecución de un metodo de búsqueda en formato de double. Un valor negativo indica que no hay limite de tiempo
 * **algorithm-name** : Nombre del metodo de búsqueda. Los disponibles son DFS, BFS, ASTAR, IDASTAR, IDDFS, GREEDY
 * **heuristic** : Heuristica que se tiene en cuenta en los métodos de búsqueda informados
+    * *Boxes To Goals*: Mide la distancia de los objetivos no cumplidos a las cajas no asignadas. 
+    * *Box Moved* : Mide la distancia minima de los objetivos no cumplidos a las cajas no asignadas sumado con la cantidad de movimientos de la caja
+    * *Boxes To Goals Min Distance*: Sumatoria de la menor distancia entre una caja sin asignar y un objetivo sin cumplir restando los objetivos cumplidos
 * **limit** : Limite base que se aplica a IDDFS e IDASTAR. Un limite negativo indica que no hay limite
 * **step** : Valor con el que se incrementa el limite en IDDFS e IDASTAR
 * **level-number**: Nivel elegido. El proyecto cuenta con 9 niveles con dificultad creciente. En caso de que se ingrese un numero negativo, el nivel sera elegido de forma aleatoria
