@@ -7,11 +7,13 @@ public class BoardStatus {
     private Set<Coordinate> boxes;
     private Coordinate player;
     private Map<Coordinate, Boolean> goals;
+    private Integer boxmoved;
 
-    public BoardStatus(Set<Coordinate> boxes, Map<Coordinate, Boolean> goals, Coordinate player) {
+    public BoardStatus(Set<Coordinate> boxes, Map<Coordinate, Boolean> goals, Coordinate player, Integer boxmoved) {
         this.boxes = boxes;
         this.player = player;
         this.goals = goals;
+        this.boxmoved = boxmoved;
     }
 
     public boolean isSolved() {
@@ -24,6 +26,10 @@ public class BoardStatus {
 
     public Map<Coordinate, Boolean> getGoals() {
         return this.goals;
+    }
+
+    public int getBoxMoved() {
+        return this.boxmoved;
     }
 
     public void setBoxes(Set<Coordinate> boxes) {
@@ -67,7 +73,7 @@ public class BoardStatus {
         }
 
         BoardStatus boardStatus = (BoardStatus) o;
-        return boxes.equals(boardStatus.boxes) && player.equals(boardStatus.player) && goals.equals(boardStatus.goals);
+        return boxes.equals(boardStatus.boxes) && player.equals(boardStatus.player) && goals.equals(boardStatus.goals) && boxmoved.equals(boardStatus.boxmoved);
     }
 
     @Override
@@ -77,6 +83,7 @@ public class BoardStatus {
         result = prime * result + ((player == null) ? 0 : player.hashCode());
         result = prime * result + ((boxes == null) ? 0 : boxes.hashCode());
         result = prime * result + ((goals == null) ? 0 : goals.hashCode());
+        result = prime * result + ((boxmoved == null) ? 0 : boxmoved.hashCode());
         return result;
     }
 }
