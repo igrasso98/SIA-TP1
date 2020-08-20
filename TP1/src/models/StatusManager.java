@@ -12,17 +12,19 @@ public class StatusManager {
         Coordinate newCoordinate = new Coordinate(newX, newY);
         Set<Coordinate> boxesUpdated = new HashSet<>(currentStatus.getBoxes());
         Map<Coordinate, Boolean> goalsUpdated = new HashMap<>(currentStatus.getGoals());
+        int newBoxMoved = currentStatus.getBoxMoved();
         if (currentStatus.getBoxes().contains(newCoordinate)) {
             newX = newCoordinate.getX() + direction.getX();
             newY = newCoordinate.getY() + direction.getY();
             Coordinate newBoxCoordinate = new Coordinate(newX, newY);
             boxesUpdated.remove(newCoordinate);
             boxesUpdated.add(newBoxCoordinate);
+             newBoxMoved += 1;
 
             if (currentStatus.getGoals().containsKey(newBoxCoordinate)) {
                 goalsUpdated.replace(newBoxCoordinate, true);
             }
         }
-        return new BoardStatus(boxesUpdated, goalsUpdated, newCoordinate);
+        return new BoardStatus(boxesUpdated, goalsUpdated, newCoordinate, newBoxMoved);
     }
 }

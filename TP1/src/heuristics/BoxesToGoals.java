@@ -1,10 +1,11 @@
 package heuristics;
+import models.Board;
 import models.BoardStatus;
 import models.Coordinate;
 import java.util.Map;
 import java.util.Set;
 
-public class Manhattan implements Heuristics {
+public class BoxesToGoals implements Heuristics {
 
     @Override
     public int compute(BoardStatus currentStatus) {
@@ -21,10 +22,12 @@ public class Manhattan implements Heuristics {
 
     private int distanceFromBoxesToGoals(Set<Coordinate> boxes, Map<Coordinate, Boolean> goals) {
         int distance = 0;
-        for (Coordinate goal : goals.keySet()){
-            if(!goals.get(goal)){
-                for(Coordinate box : boxes){
-                    distance += manhattanDistance(box, goal);
+        for (Coordinate goal : goals.keySet()) {
+            if (!goals.get(goal)) {
+                for (Coordinate box : boxes) {
+                    if(!goals.containsKey(box)){
+                        distance += manhattanDistance(box, goal);
+                    }
                 }
             }
         }

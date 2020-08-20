@@ -19,10 +19,18 @@ public class IDAstarEngine extends SearchingAlgorithms {
         }
 
         int maxLimit = limit;
-        Queue<Node> frontier = new PriorityQueue<>(Comparator.comparingInt(t -> (heuristic.compute(t.getStatus()) + t.getCost())));
+        Queue<Node> frontier = new PriorityQueue<>((t1, t2) -> {
+            int v1 = heuristic.compute(t1.getStatus()) + t1.getCost();
+            int v2 = heuristic.compute(t2.getStatus()) + t2.getCost();
+            return (v1) - (v2) ;
+        });
         Set<BoardStatus> explored = new HashSet<>();
-        Queue<Node> backUpStack = new PriorityQueue<>(Comparator.comparingInt(t -> (heuristic.compute(t.getStatus()) + t.getCost())));
-        ;
+        Queue<Node> backUpStack = new PriorityQueue<>((t1, t2) -> {
+            int v1 = heuristic.compute(t1.getStatus()) + t1.getCost();
+            int v2 = heuristic.compute(t2.getStatus()) + t2.getCost();
+            return (v1) - (v2) ;
+        });
+
         backUpStack.add(node);
         while (!backUpStack.isEmpty()) {
             frontier.add(backUpStack.poll());

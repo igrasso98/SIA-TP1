@@ -13,12 +13,15 @@ public class GreedyEngine extends SearchingAlgorithms {
         Node currentNode = node;
         if (currentNode.getStatus().isSolved()) {
             return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements());
-
         }
-
-        Queue<Node> frontier = new PriorityQueue<>(Comparator.comparingInt(t -> heuristic.compute(t.getStatus())));
+        Queue<Node> frontier = new PriorityQueue<>(new Comparator<Node>() {
+            @Override
+            public int compare(Node t1, Node t2) {
+                int v1 = heuristic.compute(t1.getStatus());
+                int v2 = heuristic.compute(t2.getStatus());
+                return (v1) - (v2);
+            }});
         Set<BoardStatus> explored = new HashSet<>();
-
         frontier.add(currentNode);
 
         while (!frontier.isEmpty()) {

@@ -1,10 +1,7 @@
 package engines;
 
 import heuristics.Heuristics;
-import models.Answer;
-import models.Board;
-import models.BoardStatus;
-import models.Node;
+import models.*;
 
 import java.util.*;
 
@@ -18,10 +15,13 @@ public class AstarEngine extends SearchingAlgorithms {
         if (node.getStatus().isSolved()) {
             return new Answer(SUCCESS, currentNode.getDepth(), currentNode.getCost(), 0, 0, currentNode.getMovements());
         }
+        Queue<Node> frontier = new PriorityQueue<>((t1, t2) -> {
+            int v1 = heuristic.compute(t1.getStatus()) + t1.getCost();
+            int v2 = heuristic.compute(t2.getStatus()) + t2.getCost();
+            return (v1) - (v2) ;
+        });
 
-        Queue<Node> frontier = new PriorityQueue<>(Comparator.comparingInt(t -> (heuristic.compute(t.getStatus()) + t.getCost())));
         Set<BoardStatus> explored = new HashSet<>();
-
         frontier.add(node);
         while (!frontier.isEmpty()) {
             currentNode = frontier.poll();
